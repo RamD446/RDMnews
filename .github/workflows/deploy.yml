@@ -5,12 +5,15 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write  # ✅ Allows pushing to gh-pages
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -23,11 +26,11 @@ jobs:
 
       - name: Build Angular app
         run: |
-          npm run build -- --base-href /RDMnews-/ &&
-          cp dist/RDMnews/browser/index.html dist/RDMnews/browser/404.html
+          npm run build -- --configuration production --base-href /RDMnews-/
+          cp dist/RDMnews/index.html dist/RDMnews/404.html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: dist/RDMnews/browser
+          folder: dist/RDMnews
