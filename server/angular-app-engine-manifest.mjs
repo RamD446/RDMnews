@@ -1,6 +1,6 @@
 
 export default {
-  basePath: 'https://RamD446.github.io/RDMnews-',
+  basePath: '/RDMnews-',
   supportedLocales: {
   "en-US": ""
 },
