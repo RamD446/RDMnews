@@ -3,17 +3,20 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # or 'master' if that's your main branch
+      - main  # Or your default branch
+
+permissions:
+  contents: write  # Required for GitHub Pages deployment
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -21,12 +24,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
+      - name: Build Angular app
         run: npm run build -- --configuration production --base-href /RDMnews-/
 
-      - name: Deploy to GitHub Pages 🚀
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages
-          folder: dist/RDMnews/browser
-          token: ${{ secrets.GH_PAGES_TOKEN }}
+          branch: gh-pages  # The branch the content will be deployed to
+          folder: dist/RDMnews/browser  # Angular build output folder
