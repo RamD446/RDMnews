@@ -1,15 +1,16 @@
 {
   "name": "rdmnews",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:RDMnews": "node dist/RDMnews/server/server.mjs"
+    "serve:ssr:RDMnews": "node dist/RDMnews/server/server.mjs",
+    "deploy": "ng build --configuration production && copy dist\\RDMnews\\browser\\index.html dist\\RDMnews\\browser\\404.html && npx angular-cli-ghpages --dir=dist/RDMnews/browser"
   },
-  "private": true,
   "dependencies": {
     "@angular/common": "^20.0.0",
     "@angular/compiler": "^20.0.0",
