@@ -3,31 +3,31 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # deploy every time you push to main
+      - main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Build Angular app
-      run: |
-        npm run build -- --base-href /RDMnews-/ &&
-        cp dist/RDMnews/index.html dist/RDMnews/404.html
+      - name: Build Angular app
+        run: |
+          npm run build -- --base-href /RDMnews-/ &&
+          cp dist/RDMnews/browser/index.html dist/RDMnews/browser/404.html
 
-    - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: gh-pages
-        folder: dist/RDMnews
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist/RDMnews/browser
